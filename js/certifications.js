@@ -2,7 +2,6 @@
 const CONFIG = {
     instance: 'dev281875.service-now.com',
     table: 'x_941497_git_repo_servicenow_mainline',
-    // You'll need to add your credentials later
     credentials: {
         username: 'vasanth',
         password: 'Stark@15'
@@ -45,11 +44,26 @@ function createCertificationCard(cert) {
 
 // Function to fetch certifications from ServiceNow
 async function fetchCertifications() {
-    const url = 'http://localhost:3000/api/certifications';
-    console.log('Fetching certifications from proxy:', url);
+    const url = `https://${CONFIG.instance}/api/now/table/${CONFIG.table}`;
+    console.log('Fetching certifications from:', url);
     
     try {
-        const response = await fetch(url);
+        const headers = {
+            'Authorization': getAuthHeader(),
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+        };
+        console.log('Request headers:', { ...headers, Authorization: '[REDACTED]' });
+
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: headers,
+            mode: 'cors'
+        });
+
         console.log('Response status:', response.status);
         
         if (!response.ok) {
@@ -60,6 +74,11 @@ async function fetchCertifications() {
 
         const data = await response.json();
         console.log('Received data:', data);
+        
+        if (!data || !data.result) {
+            throw new Error('Invalid response format from ServiceNow');
+        }
+        
         return data.result;
     } catch (error) {
         console.error('Detailed error while fetching certifications:', error);
