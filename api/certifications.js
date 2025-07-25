@@ -46,7 +46,18 @@ export default async function handler(req, res) {
         }
 
         const data = await response.json();
-        res.status(200).json(data);
+        
+        // Transform the data to match the expected format
+        const formattedResult = data.result.map(cert => ({
+            name: cert.certification_name || cert.name || 'Untitled Certification',
+            issuing_organization: cert.issuing_organization || cert.organization || 'Unknown Organization',
+            issue_date: cert.issue_date || cert.issued_date || new Date().toISOString(),
+            expiry_date: cert.expiry_date || cert.expiration_date || null,
+            credential_url: cert.credential_url || cert.verify_url || null,
+            badge_url: cert.badge_url || cert.image_url || 'https://via.placeholder.com/100'
+        }));
+
+        res.status(200).json({ result: formattedResult });
     } catch (error) {
         console.error('Error fetching certifications:', error);
         res.status(500).json({ error: error.message });

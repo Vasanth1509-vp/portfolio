@@ -16,22 +16,33 @@ function getAuthHeader() {
 
 // Function to create a certification card
 function createCertificationCard(cert) {
+    // Ensure we have default values for all fields
+    const certification = {
+        name: cert.name || 'Untitled Certification',
+        issuing_organization: cert.issuing_organization || 'Unknown Organization',
+        issue_date: cert.issue_date ? new Date(cert.issue_date) : new Date(),
+        expiry_date: cert.expiry_date ? new Date(cert.expiry_date) : null,
+        credential_url: cert.credential_url || null,
+        badge_url: cert.badge_url || 'https://via.placeholder.com/100'
+    };
+
     return `
         <div class="bg-white rounded-xl shadow-sm p-6 card-hover">
             <div class="flex items-center justify-center mb-4">
-                <img src="${cert.badge_url || 'https://via.placeholder.com/100'}" 
-                     alt="${cert.name}" 
-                     class="w-24 h-24 object-contain">
+                <img src="${certification.badge_url}" 
+                     alt="${certification.name}" 
+                     class="w-24 h-24 object-contain"
+                     onerror="this.src='https://via.placeholder.com/100'">
             </div>
             <div class="text-center">
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">${cert.name}</h3>
-                <p class="text-gray-600 mb-2">${cert.issuing_organization}</p>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">${certification.name}</h3>
+                <p class="text-gray-600 mb-2">${certification.issuing_organization}</p>
                 <p class="text-sm text-gray-500">
-                    Issued: ${new Date(cert.issue_date).toLocaleDateString()}
-                    ${cert.expiry_date ? `<br>Expires: ${new Date(cert.expiry_date).toLocaleDateString()}` : ''}
+                    Issued: ${certification.issue_date.toLocaleDateString()}
+                    ${certification.expiry_date ? `<br>Expires: ${certification.expiry_date.toLocaleDateString()}` : ''}
                 </p>
-                ${cert.credential_url ? `
-                    <a href="${cert.credential_url}" 
+                ${certification.credential_url ? `
+                    <a href="${certification.credential_url}" 
                        target="_blank" 
                        class="mt-3 inline-block text-blue-500 hover:text-blue-600 transition-colors">
                         Verify →
@@ -60,8 +71,9 @@ async function fetchCertifications() {
         const data = await response.json();
         console.log('Received data:', data);
         
-        if (!data || !data.result) {
-            throw new Error('Invalid response format from ServiceNow');
+        if (!data || !data.result || !Array.isArray(data.result)) {
+            console.error('Invalid data format:', data);
+            throw new Error('Invalid response format from server');
         }
         
         return data.result;
@@ -74,8 +86,14 @@ async function fetchCertifications() {
 // Function to update the UI with certifications
 async function updateCertifications() {
     const certificationsContainer = document.getElementById('certifications');
+    const loadingHtml = `
+        <div class="col-span-full text-center py-12">
+            <p class="text-gray-500">Loading certifications...</p>
+        </div>
+    `;
     
     try {
+        certificationsContainer.innerHTML = loadingHtml;
         console.log('Starting to fetch certifications...');
         const certifications = await fetchCertifications();
         console.log('Received certifications:', certifications);
@@ -112,13 +130,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Refresh button click handler
     const refreshButton = document.getElementById('refreshButton');
-    refreshButton.addEventListener('click', () => {
-        refreshButton.disabled = true;
-        refreshButton.classList.add('opacity-50');
-        
-        updateCertifications().finally(() => {
-            refreshButton.disabled = false;
-            refreshButton.classList.remove('opacity-50');
+    if (refreshButton) {
+        refreshButton.addEventListener('click', () => {
+            refreshButton.disabled = true;
+            refreshButton.classList.add('opacity-50');
+            
+            updateCertifications().finally(() => {
+                refreshButton.disabled = false;
+                refreshButton.classList.remove('opacity-50');
+            });
         });
-    });
+    }
 }); 
