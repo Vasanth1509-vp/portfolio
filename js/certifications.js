@@ -44,26 +44,11 @@ function createCertificationCard(cert) {
 
 // Function to fetch certifications from ServiceNow
 async function fetchCertifications() {
-    const url = `https://${CONFIG.instance}/api/now/table/${CONFIG.table}`;
+    const url = '/api/certifications';
     console.log('Fetching certifications from:', url);
     
     try {
-        const headers = {
-            'Authorization': getAuthHeader(),
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type, Authorization'
-        };
-        console.log('Request headers:', { ...headers, Authorization: '[REDACTED]' });
-
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: headers,
-            mode: 'cors'
-        });
-
+        const response = await fetch(url);
         console.log('Response status:', response.status);
         
         if (!response.ok) {
