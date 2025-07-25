@@ -1,4 +1,5 @@
-// Vercel Serverless Function for ServiceNow API
+import fetch from 'node-fetch';
+
 export default async function handler(req, res) {
     // Enable CORS
     res.setHeader('Access-Control-Allow-Credentials', true);
@@ -24,28 +25,33 @@ export default async function handler(req, res) {
     };
 
     try {
+        console.log('Fetching certifications from ServiceNow...');
         const base64Credentials = Buffer.from(
             `${CONFIG.credentials.username}:${CONFIG.credentials.password}`
         ).toString('base64');
 
-        const response = await fetch(
-            `https://${CONFIG.instance}/api/now/table/${CONFIG.table}`,
-            {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Basic ${base64Credentials}`,
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                }
+        const url = `https://${CONFIG.instance}/api/now/table/${CONFIG.table}`;
+        console.log('ServiceNow URL:', url);
+
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Basic ${base64Credentials}`,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             }
-        );
+        });
+
+        console.log('ServiceNow Response Status:', response.status);
 
         if (!response.ok) {
             const errorText = await response.text();
+            console.error('ServiceNow Error Response:', errorText);
             throw new Error(`ServiceNow API error: ${response.status} - ${errorText}`);
         }
 
         const data = await response.json();
+        console.log('ServiceNow Raw Response:', data);
         
         // Transform the data to match the expected format
         const formattedResult = data.result.map(cert => ({
@@ -57,9 +63,10 @@ export default async function handler(req, res) {
             badge_url: cert.badge_url || cert.image_url || 'https://via.placeholder.com/100'
         }));
 
+        console.log('Formatted Result:', formattedResult);
         res.status(200).json({ result: formattedResult });
     } catch (error) {
-        console.error('Error fetching certifications:', error);
+        console.error('Error in API handler:', error);
         res.status(500).json({ error: error.message });
     }
 } 
