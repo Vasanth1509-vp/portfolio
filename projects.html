@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects - Portfolio</title>
+    <!-- Include Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 w-full bg-white bg-opacity-70 backdrop-blur-md shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <!-- Logo/Home -->
+                    <a href="index.html" class="flex items-center px-2 text-gray-800 hover:text-gray-600 transition-colors">
+                        <span class="text-xl font-semibold">Portfolio</span>
+                    </a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="flex items-center sm:hidden">
+                    <button type="button" id="mobileMenuBtn" class="text-gray-500 hover:text-gray-600">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+                <!-- Desktop Navigation Links -->
+                <div class="hidden sm:flex space-x-8">
+                    <a href="about.html" class="inline-flex items-center px-1 pt-1 text-gray-800 hover:text-gray-600 transition-colors">
+                        About
+                    </a>
+                    <a href="blogs.html" class="inline-flex items-center px-1 pt-1 text-gray-800 hover:text-gray-600 transition-colors">
+                        Blogs
+                    </a>
+                    <a href="projects.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-gray-900">
+                        Projects
+                    </a>
+                    <a href="certifications.html" class="inline-flex items-center px-1 pt-1 text-gray-800 hover:text-gray-600 transition-colors">
+                        Certifications
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden sm:hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="about.html" class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">About</a>
+                <a href="blogs.html" class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">Blogs</a>
+                <a href="projects.html" class="block px-3 py-2 text-base font-medium text-gray-900 bg-gray-50 rounded-md">Projects</a>
+                <a href="certifications.html" class="block px-3 py-2 text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">Certifications</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">My Projects</h1>
+                <p class="text-gray-600">A showcase of my technical work and achievements</p>
+            </div>
+
+            <!-- Refresh Button -->
+            <div class="flex justify-center mb-8">
+                <button id="refreshButton" class="px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors shadow-sm">
+                    Refresh Projects
+                </button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div id="projects" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Projects will be dynamically inserted here -->
+                <div class="animate-pulse bg-white rounded-xl shadow-sm overflow-hidden">
+                    <div class="h-48 bg-gray-200"></div>
+                    <div class="p-6">
+                        <div class="h-6 bg-gray-200 rounded w-3/4 mb-4"></div>
+                        <div class="h-4 bg-gray-200 rounded w-full mb-2"></div>
+                        <div class="h-4 bg-gray-200 rounded w-full mb-2"></div>
+                        <div class="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
+                        <div class="flex flex-wrap gap-2">
+                            <div class="h-6 w-16 bg-gray-200 rounded-full"></div>
+                            <div class="h-6 w-16 bg-gray-200 rounded-full"></div>
+                            <div class="h-6 w-16 bg-gray-200 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- More loading placeholders -->
+                <div class="animate-pulse bg-white rounded-xl shadow-sm overflow-hidden">
+                    <div class="h-48 bg-gray-200"></div>
+                    <div class="p-6">
+                        <div class="h-6 bg-gray-200 rounded w-3/4 mb-4"></div>
+                        <div class="h-4 bg-gray-200 rounded w-full mb-2"></div>
+                        <div class="h-4 bg-gray-200 rounded w-full mb-2"></div>
+                        <div class="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
+                        <div class="flex flex-wrap gap-2">
+                            <div class="h-6 w-16 bg-gray-200 rounded-full"></div>
+                            <div class="h-6 w-16 bg-gray-200 rounded-full"></div>
+                            <div class="h-6 w-16 bg-gray-200 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t">
+        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-gray-500">© 2024 Your Name. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/projects.js"></script>
+    <script>
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html> 

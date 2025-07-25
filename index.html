@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <!-- Include Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="stars" id="stars"></div>
+        <div class="rocket" id="rocket">
+            <div class="rocket-tip"></div>
+            <div class="rocket-body">
+                <div class="rocket-window"></div>
+            </div>
+            <div class="rocket-fins">
+                <div class="fin fin-left"></div>
+                <div class="fin fin-right"></div>
+            </div>
+            <div class="rocket-fire">
+                <div class="fire"></div>
+            </div>
+        </div>
+        <div class="loading-text" id="loadingText">BuckleUp To Visit The Portfolio</div>
+    </div>
+
+    <!-- Audio Elements -->
+    <audio id="rocketSound" preload="auto">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2434/2434-preview.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 w-full bg-white bg-opacity-70 backdrop-blur-md shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <!-- Logo/Home -->
+                    <a href="index.html" class="flex items-center px-2 text-gray-800 hover:text-gray-600 transition-colors">
+                        <span class="text-xl font-semibold">Portfolio</span>
+                    </a>
+                </div>
+                <!-- Navigation Links -->
+                <div class="flex space-x-8">
+                    <a href="about.html" class="inline-flex items-center px-1 pt-1 text-gray-800 hover:text-gray-600 transition-colors">
+                        About
+                    </a>
+                    <a href="blogs.html" class="inline-flex items-center px-1 pt-1 text-gray-800 hover:text-gray-600 transition-colors">
+                        Blogs
+                    </a>
+                    <a href="projects.html" class="inline-flex items-center px-1 pt-1 text-gray-800 hover:text-gray-600 transition-colors">
+                        Projects
+                    </a>
+                    <a href="certifications.html" class="inline-flex items-center px-1 pt-1 text-gray-800 hover:text-gray-600 transition-colors">
+                        Certifications
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="min-h-screen flex items-center justify-center pt-16 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <!-- Hero Section -->
+            <div class="mb-12">
+                <div class="w-32 h-32 sm:w-48 sm:h-48 mx-auto mb-8 rounded-full overflow-hidden shadow-lg">
+                    <img src="images/profile.jpeg" alt="Profile Photo" class="w-full h-full object-cover">
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Vasanth Periyasamy</h1>
+                <h2 class="text-xl sm:text-2xl text-gray-600 mb-8">Enterprise Architect</h2>
+                <p class="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-12">
+                    Building elegant solutions for complex problems
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <a href="blogs.html" class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Read My Blog</h3>
+                    <p class="text-gray-600">Thoughts and insights about technology</p>
+                </a>
+                <a href="projects.html" class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">View Projects</h3>
+                    <p class="text-gray-600">Showcase of my technical work</p>
+                </a>
+                <a href="certifications.html" class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Certifications</h3>
+                    <p class="text-gray-600">Professional achievements</p>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t">
+        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-gray-500">© 2024 Vasanth Periyasamy. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Loading Animation Script -->
+    <script>
+        // Create stars
+        function createStars() {
+            const stars = document.getElementById('stars');
+            const numberOfStars = 100;
+            
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = Math.random() * 3 + 'px';
+                star.style.height = star.style.width;
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 1 + 's';
+                stars.appendChild(star);
+            }
+        }
+
+        // Handle loading sequence
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            
+            const loadingScreen = document.getElementById('loadingScreen');
+            const rocket = document.getElementById('rocket');
+            const mainContent = document.querySelector('main');
+            const rocketSound = document.getElementById('rocketSound');
+
+            // Initially hide main content
+            mainContent.style.opacity = '0';
+            mainContent.style.transition = 'opacity 0.3s ease-out';
+
+            // Start the launch sequence after a short delay
+            setTimeout(() => {
+                // Play rocket sound
+                rocketSound.play();
+                
+                // Launch rocket
+                rocket.style.transform = 'translateY(-100vh) scale(0.5)';
+                
+                // After rocket launches
+                setTimeout(() => {
+                    loadingScreen.classList.add('fade-out');
+                    mainContent.style.opacity = '1';
+
+                    // Remove loading elements after fade
+                    setTimeout(() => {
+                        loadingScreen.remove();
+                    }, 300);
+                }, 500);
+            }, 500);
+        });
+    </script>
+</body>
+</html> 

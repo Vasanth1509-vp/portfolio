@@ -1,0 +1,195 @@
+/* Custom transitions */
+.transition-colors {
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Smooth scroll behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom hover effects */
+.hover-lift {
+    transition: transform 0.2s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-2px);
+}
+
+/* Card hover effects */
+.card-hover {
+    transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Loading Screen */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #000000, #1a237e);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.3s ease-out;
+}
+
+.loading-screen.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Rocket */
+.rocket {
+    width: 60px;
+    height: 120px;
+    position: relative;
+    transition: transform 0.5s ease-in-out;
+}
+
+.rocket-body {
+    width: 60px;
+    height: 80px;
+    background: #ffffff;
+    border-radius: 50% / 30%;
+    position: relative;
+    overflow: hidden;
+}
+
+.rocket-tip {
+    width: 0;
+    height: 0;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 40px solid #ffffff;
+    position: absolute;
+    top: -40px;
+    left: 0;
+}
+
+.rocket-window {
+    width: 20px;
+    height: 20px;
+    background: #1a237e;
+    border-radius: 50%;
+    position: absolute;
+    top: 30px;
+    left: 20px;
+}
+
+.rocket-fins {
+    position: absolute;
+    bottom: -20px;
+}
+
+.fin {
+    width: 20px;
+    height: 30px;
+    background: #ffffff;
+    position: absolute;
+}
+
+.fin-left {
+    transform: rotate(-45deg);
+    left: -15px;
+}
+
+.fin-right {
+    transform: rotate(45deg);
+    right: -15px;
+}
+
+.rocket-fire {
+    width: 40px;
+    height: 60px;
+    position: absolute;
+    bottom: -60px;
+    left: 10px;
+    overflow: hidden;
+}
+
+.fire {
+    width: 40px;
+    height: 60px;
+    background: linear-gradient(to bottom, #ff5722, #ff9800);
+    border-radius: 20px;
+    animation: fire 0.5s infinite alternate;
+}
+
+@keyframes fire {
+    from {
+        transform: scaleY(0.8);
+    }
+    to {
+        transform: scaleY(1.1);
+    }
+}
+
+.loading-text {
+    margin-top: 40px;
+    color: #ffffff;
+    font-size: 24px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Stars */
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    background: #ffffff;
+    border-radius: 50%;
+    animation: starTwinkle 1s infinite alternate;
+}
+
+@keyframes starTwinkle {
+    from {
+        opacity: 0.2;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+} 
